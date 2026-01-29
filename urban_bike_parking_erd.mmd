@@ -1,0 +1,41 @@
+```mermaid
+erDiagram
+    ParkingSpot {
+        string spot_id PK
+        string location
+        list amenities
+        float price
+        bool available
+    }
+    
+    Reservation {
+        string user_id
+        string spot_id FK
+        datetime start_time
+        datetime end_time
+        bool paid
+    }
+    
+    Locker {
+        string locker_id PK
+        string bluetooth_key
+        bool is_locked
+    }
+    
+    AnalyticsDashboard {
+        string spot_id
+        string user_id
+        datetime timestamp
+    }
+    
+    Reservation ||--|| ParkingSpot : reserves >
+    AnalyticsDashboard ||--|| ParkingSpot : logs >
+    AnalyticsDashboard ||--|| Reservation : logs >
+    
+    NotificationService {
+        string user_id
+        string message
+    }
+    
+    NotificationService ||--|| Reservation : notifies >
+```
